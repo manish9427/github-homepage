@@ -16,27 +16,36 @@ import glass from "./assets/images/Dual Ring-1s-200px.png";
 import UserList from "./components/userlist/UserList";
 
 const App = () => {
-  const { setFollowers, setRepo, user, setUser, loading, setLoading, following, setFollowing,} = useContext(UserCreateContext);
-  let username = "mukhriddin-dev"
-  function fetchData (userName = "mukhriddin-dev") {
+  const {
+    setFollowers,
+    setRepo,
+    user,
+    setUser,
+    loading,
+    setLoading,
+    following,
+    setFollowing,
+  } = useContext(UserCreateContext);
+  let username = "manish9427";
+  function fetchData(userName = "manish9427") {
     API.getRepos(userName)
-    .then((rep) => {
-      setRepo(rep.data);
-    })
-    .catch((error) => console.log(error));
+      .then((rep) => {
+        setRepo(rep.data);
+      })
+      .catch((error) => console.log(error));
   }
   useEffect(() => {
     setLoading(true);
     API.getUser(username)
-    .then((response) => {
-      setUser(response.data);
-    })
-    .catch((error) => console.log(error))
-    .finally(() => setLoading(false));
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
-    fetchData(user.login)
+    fetchData(user.login);
     API.getFollowing(user.login)
       .then((response) => {
         setFollowing(response.data);
@@ -74,7 +83,10 @@ const App = () => {
                   <Route path="/packages" element={<Packages />} />
                   <Route path="/stars" element={<Stars />} />
                   <Route path="/followers" element={<Followers />} />
-                  <Route path="/following" element={<Following following={following} />} />
+                  <Route
+                    path="/following"
+                    element={<Following following={following} />}
+                  />
                   <Route path="/userlist" element={<UserList />} />
                 </Routes>
               </div>
